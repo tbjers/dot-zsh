@@ -1,3 +1,7 @@
+if [ ! -n "$ZSH" ]; then
+  ZSH=$HOME/.zsh
+fi
+
 source $ZSH/antigen.zsh
 
 export VISUAL=vim
