@@ -34,7 +34,16 @@ antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
   git
+  composer
+  bower
   git-flow
+  git-extras
+  github
+  jake-node
+  node
+  npm
+  nvm
+  rbenv
   gem
   rake
   ruby
@@ -50,4 +59,6 @@ antigen apply
 
 [ -f "$HOME/.credentials.`basename $SHELL`" ] && source "$HOME/.credentials.`basename $SHELL`"
 
+alias git='hub'
 alias gf='git flow'
+alias mvn-clean-install='GIT_COMMIT=`` mvn clean install -Dmaven.test.skip=true'
