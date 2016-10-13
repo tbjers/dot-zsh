@@ -1,0 +1,53 @@
+if [ ! -n "$ZSH" ]; then
+  ZSH=$HOME/.zsh
+fi
+
+export ELLIPSIS_PROTO=ssh
+
+source $ZSH/antigen.zsh
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
+DEFAULT_USER=tbjers
+
+export PROJECTS=$HOME/git
+export GOPATH=$HOME/go
+
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+PATH="$HOME/.ellipsis/bin:$HOME/.rbenv/bin:$HOME/.packer/bin:$HOME/.composer/vendor/bin:$PATH:$GOPATH/bin"
+
+export PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+alias vim="stty stop '' -ixoff ; vim"
+alias be='bundle exec'
+
+ttyctl -f
+
+eval "$(rbenv init -)"
+
+[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
+
+antigen use oh-my-zsh
+
+antigen bundles <<EOBUNDLES
+  git
+  git-flow
+  gem
+  rake
+  ruby
+  common-aliases
+  tbjers/zsh-plugins plugins/cl
+  tbjers/zsh-plugins plugins/gibo
+  ssh-agent
+EOBUNDLES
+
+antigen theme theunraveler
+
+antigen apply
+
+[ -f "$HOME/.credentials.`basename $SHELL`" ] && source "$HOME/.credentials.`basename $SHELL`"
+
+alias gf='git flow'
