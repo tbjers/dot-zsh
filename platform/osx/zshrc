@@ -2,6 +2,8 @@ if [ ! -n "$ZSH" ]; then
   ZSH=$HOME/.zsh
 fi
 
+export ELLIPSIS_PROTO=ssh
+
 source $ZSH/antigen.zsh
 
 export VISUAL=vim
