@@ -36,34 +36,11 @@ change_shell() {
   fi
 }
 
-helper() {
-  $1
-}
-
 pkg.install() {
-  fs.backup ~/.zsh
-
   check_shell
   change_shell
+
+  curl https://cdn.rawgit.com/zsh-users/antigen/v1.2.0/bin/antigen.zsh > $PKG_PATH/antigen.zsh
+
+  fs.link_file $PKG_PATH
 }
-
-# The following hooks can be defined to customize behavior of your package:
-# pkg.install() {
-#     fs.link_files $PKG_PATH
-# }
-
-# pkg.push() {
-#     git.push
-# }
-
-# pkg.pull() {
-#     git.pull
-# }
-
-# pkg.installed() {
-#     git.status
-# }
-#
-# pkg.status() {
-#     git.diffstat
-# }
