@@ -39,6 +39,9 @@ export NVM_DIR="$HOME/.nvm"
 alias vim="stty stop '' -ixoff ; vim"
 alias be='bundle exec'
 
+# kqueue is broken in OS X
+export EVENT_NOKQUEUE=1
+
 ttyctl -f
 
 eval "$(rbenv init -)"
