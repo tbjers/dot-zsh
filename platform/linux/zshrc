@@ -13,7 +13,7 @@ DEFAULT_USER=tbjers
 export PROJECTS=$HOME/git
 export GOPATH=$HOME/go
 
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
+PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 PATH="$HOME/.rbenv/bin:$HOME/.packer/bin:$HOME/.composer/vendor/bin:$PATH:$GOPATH/bin"
 PATH="$HOME/Applications/apache-maven-3.3.3/bin:$PATH"
 
