@@ -13,7 +13,7 @@ DEFAULT_USER=tbjers
 export PROJECTS=$HOME/git
 export GOPATH=$HOME/go
 
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
+PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 PATH="$HOME/.rbenv/bin:$HOME/.packer/bin:$HOME/.composer/vendor/bin:$PATH:$GOPATH/bin"
 
 # Source Ellipsis init code or fallback to the older system
@@ -74,3 +74,5 @@ antigen apply
 [ -f "$HOME/.credentials.`basename $SHELL`" ] && source "$HOME/.credentials.`basename $SHELL`"
 
 alias gf='git flow'
+alias gs='git status'
+alias nah='git reset --hard; git clean -df;'
