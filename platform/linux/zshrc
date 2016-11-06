@@ -69,6 +69,8 @@ antigen apply
 
 alias git='hub'
 alias gf='git flow'
+alias gs='git status'
+alias nah='git reset --hard; git clean -df;'
 alias mvn-clean-install='GIT_COMMIT=`` mvn clean install --update-snapshots --define maven.test.skip=true'
 if type 'gnome-open' > /dev/null; then
   alias open='gnome-open'

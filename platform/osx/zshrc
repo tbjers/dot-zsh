@@ -56,7 +56,16 @@ antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
   git
+  composer
+  bower
   git-flow
+  git-extras
+  github
+  jake-node
+  node
+  npm
+  nvm
+  rbenv
   gem
   rake
   ruby
