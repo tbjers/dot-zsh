@@ -61,10 +61,6 @@ antigen bundles <<EOBUNDLES
   git-flow
   git-extras
   github
-  jake-node
-  node
-  npm
-  nvm
   rbenv
   gem
   rake
