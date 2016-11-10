@@ -34,36 +34,53 @@ alias be='bundle exec'
 
 ttyctl -f
 
-eval "$(rbenv init -)"
+if which rbenv > /dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
 
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
-antigen use oh-my-zsh
+if which antigen > /dev/null 2>&1; then
+  antigen use oh-my-zsh
 
-antigen bundles <<EOBUNDLES
-  git
-  composer
-  bower
-  git-flow
-  git-extras
-  github
-  jake-node
-  node
-  npm
-  nvm
-  rbenv
-  gem
-  rake
-  ruby
-  common-aliases
-  tbjers/zsh-plugins plugins/cl
-  tbjers/zsh-plugins plugins/gibo
-  ssh-agent
+  antigen bundles <<EOBUNDLES
+    git
+    composer
+    bower
+    git-flow
+    git-extras
+    github
+    common-aliases
+    tbjers/zsh-plugins plugins/cl
+    tbjers/zsh-plugins plugins/gibo
+    ssh-agent
 EOBUNDLES
 
-antigen theme theunraveler
+  if which rbenv > /dev/null 2>&1; then
+    antigen bundles <<EOBUNDLES
+      rbenv
+      gem
+      rake
+      ruby
+EOBUNDLES
+  fi
 
-antigen apply
+  if which nvm > /dev/null 2>&1; then
+    antigen bundles <<EOBUNDLES
+      jake-node
+      node
+      npm
+      nvm
+EOBUNDLES
+  fi
+
+  antigen theme theunraveler
+
+  antigen apply
+else
+  echo "WARNING: Antigen is not installed. Please rerun:"
+  echo "$ ellipsis install tbjers/dot-zsh"
+fi
 
 [ -f "$HOME/.credentials.`basename $SHELL`" ] && source "$HOME/.credentials.`basename $SHELL`"
 
