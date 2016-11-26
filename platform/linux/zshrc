@@ -16,6 +16,7 @@ export GOPATH=$HOME/go
 PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 PATH="$HOME/.rbenv/bin:$HOME/.packer/bin:$HOME/.composer/vendor/bin:$PATH:$GOPATH/bin"
 PATH="$HOME/Applications/apache-maven-3.3.3/bin:$PATH"
+PATH="/usr/local/heroku/bin:$PATH"
 
 export PATH
 
@@ -91,4 +92,7 @@ alias nah='git reset --hard; git clean -df;'
 alias mvn-clean-install='GIT_COMMIT=`` mvn clean install --update-snapshots --define maven.test.skip=true'
 if type 'gnome-open' > /dev/null; then
   alias open='gnome-open'
+fi
+if type 'gvfs-open' > /dev/null; then
+  alias open='gvfs-open'
 fi

@@ -18,7 +18,15 @@ pkg.link() {
 check_shell() {
   CHECK_ZSH_INSTALLED=$(grep /zsh$ /etc/shells | wc -l)
   if [ ! $CHECK_ZSH_INSTALLED -ge 1 ]; then
-    echo "Zsh is not installed! Please install it first."
+    echo "Zsh is not installed. Attempting automatic installation..."
+    case $(os.platform) in
+      osx)
+        brew install zsh
+        ;;
+      linux)
+        sudo dnf install zsh util-linux-user -y
+        ;;
+    esac
     exit
   fi
   unset CHECK_ZSH_INSTALLED
