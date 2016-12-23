@@ -30,6 +30,11 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
+# Source asdf
+if [ -f ~/.asdf/asdf.sh ]; then
+	. ~/.asdf/asdf.sh
+fi
+
 alias vim="stty stop '' -ixoff ; vim"
 alias be='bundle exec'
 
