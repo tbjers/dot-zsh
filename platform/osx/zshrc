@@ -84,7 +84,6 @@ antigen apply
 alias gf='git flow'
 alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
-<<<<<<< Updated upstream
 alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
 
 export HOMEBREW_NO_ANALYTICS=1
