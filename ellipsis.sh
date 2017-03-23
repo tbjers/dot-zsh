@@ -48,7 +48,7 @@ pkg.install() {
   check_shell
   change_shell
 
-  curl https://cdn.rawgit.com/zsh-users/antigen/v1.2.0/bin/antigen.zsh > $PKG_PATH/antigen.zsh
+  curl https://cdn.rawgit.com/zsh-users/antigen/v1.4.1/bin/antigen.zsh > $PKG_PATH/antigen.zsh
 
   fs.link_file $PKG_PATH
 }
