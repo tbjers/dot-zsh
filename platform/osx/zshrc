@@ -6,7 +6,7 @@ export ELLIPSIS_PROTO=ssh
 
 source $ZSH/antigen.zsh
 
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 DEFAULT_USER=tbjers
 
@@ -31,12 +31,16 @@ ANDROID_SDK_PATH=$HOME/Library/android-sdk-macosx/platform-tools
 [ -d "$ANDROID_NDK_PATH" ] && PATH="$ANDROID_NDK_PATH:$PATH"
 [ -d "$ANDROID_SDK_PATH" ] && PATH="$ANDROID_SDK_PATH:$PATH"
 
-export PATH
-
 export NVM_DIR="$HOME/.nvm"
+PATH=$NVM_DIR/versions/node/v6.9.1/bin:$PATH
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-alias vim="stty stop '' -ixoff ; vim"
+# Source asdf
+if [ -f ~/.asdf/asdf.sh ]; then
+	. ~/.asdf/asdf.sh
+fi
+
+alias vim="stty stop '' -ixoff ; nvim"
 alias be='bundle exec'
 
 # kqueue is broken in OS X
@@ -52,22 +56,18 @@ eval "$(direnv hook zsh)"
 # Use PHP provided by Homebrew
 PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
 
+export PATH
+
 antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
   git
-  composer
-  bower
   git-flow
   git-extras
   github
-  rbenv
-  gem
-  rake
-  ruby
   common-aliases
+  zsh-users/zsh-syntax-highlighting
   tbjers/zsh-plugins plugins/cl
-  tbjers/zsh-plugins plugins/gibo
   ssh-agent
 EOBUNDLES
 
@@ -81,3 +81,4 @@ antigen apply
 alias gf='git flow'
 alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
+alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
