@@ -26,8 +26,8 @@ fi
 POSTGRES_PATH=/Applications/Postgres.app/Contents/Versions/latest/bin
 [ -d "$POSTGRES_PATH" ] && PATH="$POSTGRES_PATH:$PATH"
 
-ANDROID_NDK_PATH=$HOME/Library/android-ndk-macosx
-ANDROID_SDK_PATH=$HOME/Library/android-sdk-macosx/platform-tools
+ANDROID_NDK_PATH=$HOME/Library/Android/ndk
+ANDROID_SDK_PATH=$HOME/Library/Android/sdk/platform-tools
 [ -d "$ANDROID_NDK_PATH" ] && PATH="$ANDROID_NDK_PATH:$PATH"
 [ -d "$ANDROID_SDK_PATH" ] && PATH="$ANDROID_SDK_PATH:$PATH"
 
@@ -52,6 +52,9 @@ ttyctl -f
 
 # Use PHP provided by Homebrew
 PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
+
+[ -f "$HOME/.asdf/asdf.sh" ] && source "$HOME/.asdf/asdf.sh"
+[ -f "$HOME/.asdf/completions/asdf.bash" ] && source "$HOME/.asdf/completions/asdf.bash"
 
 export PATH
 
@@ -83,3 +86,5 @@ alias gf='git flow'
 alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
 alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
+
+export HOMEBREW_NO_ANALYTICS=1
