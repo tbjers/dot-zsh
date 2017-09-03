@@ -24,7 +24,11 @@ check_shell() {
         brew install zsh
         ;;
       linux)
-        sudo dnf install zsh util-linux-user -y
+        if utils.cmd_exists dnf; then
+          sudo dnf install zsh util-linux-user -y
+        elif utils.cmd_exists apt-get; then
+          sudo apt-get install zsh
+        fi
         ;;
     esac
     exit
@@ -47,8 +51,6 @@ change_shell() {
 pkg.install() {
   check_shell
   change_shell
-
-  curl https://cdn.rawgit.com/zsh-users/antigen/v1.4.1/bin/antigen.zsh > $PKG_PATH/antigen.zsh
-
+  curl https://cdn.rawgit.com/zsh-users/antigen/v2.2.1/bin/antigen.zsh > $PKG_PATH/antigen.zsh
   fs.link_file $PKG_PATH
 }
