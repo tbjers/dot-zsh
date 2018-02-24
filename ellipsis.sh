@@ -27,7 +27,9 @@ check_shell() {
         if utils.cmd_exists dnf; then
           sudo dnf install zsh util-linux-user -y
         elif utils.cmd_exists apt-get; then
-          sudo apt-get install zsh
+          sudo apt-get install -y zsh
+        elif utils.cmd_exists yum; then
+          sudo yum install zsh util-linux-user -y
         fi
         ;;
     esac
@@ -51,6 +53,6 @@ change_shell() {
 pkg.install() {
   check_shell
   change_shell
-  curl https://cdn.rawgit.com/zsh-users/antigen/v2.2.1/bin/antigen.zsh > $PKG_PATH/antigen.zsh
+  curl -L https://git.io/antigen > $PKG_PATH/antigen.zsh
   fs.link_file $PKG_PATH
 }

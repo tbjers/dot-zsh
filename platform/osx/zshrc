@@ -88,3 +88,11 @@ alias nah='git reset --hard; git clean -df;'
 alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
 
 export HOMEBREW_NO_ANALYTICS=1
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/tbjers/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/tbjers/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/tbjers/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/tbjers/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
