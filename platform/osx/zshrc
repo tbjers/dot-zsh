@@ -18,9 +18,9 @@ PATH="$HOME/.rbenv/bin:$HOME/.packer/bin:$HOME/.composer/vendor/bin:$PATH:$GOPAT
 
 # Source Ellipsis init code or fallback to the older system
 if [ -f ~/.ellipsis/init.sh ]; then
-	. ~/.ellipsis/init.sh
+  . ~/.ellipsis/init.sh
 else
-	export PATH=$PATH:~/.ellipsis/bin
+  export PATH=$PATH:~/.ellipsis/bin
 fi
 
 POSTGRES_PATH=/Applications/Postgres.app/Contents/Versions/latest/bin
@@ -37,7 +37,7 @@ PATH=$NVM_DIR/versions/node/v6.9.1/bin:$PATH
 
 # Source asdf
 if [ -f ~/.asdf/asdf.sh ]; then
-	. ~/.asdf/asdf.sh
+  . ~/.asdf/asdf.sh
 fi
 
 alias vim="stty stop '' -ixoff ; nvim"
@@ -49,9 +49,6 @@ export EVENT_NOKQUEUE=1
 ttyctl -f
 
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
-
-# Use PHP provided by Homebrew
-PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
 
 [ -f "$HOME/.asdf/asdf.sh" ] && source "$HOME/.asdf/asdf.sh"
 [ -f "$HOME/.asdf/completions/asdf.bash" ] && source "$HOME/.asdf/completions/asdf.bash"
@@ -85,14 +82,14 @@ antigen apply
 alias gf='git flow'
 alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
-alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
+alias nrc='npm run commit'
+alias yc='yarn commit'
 
-export HOMEBREW_NO_ANALYTICS=1
-
+CURRENT_NODE=$(nvm current)
+echo "Using Node ${CURRENT_NODE}."
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/tbjers/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/tbjers/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+[[ -f /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/tbjers/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/tbjers/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ -f /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
