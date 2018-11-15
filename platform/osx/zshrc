@@ -15,6 +15,9 @@ export GOPATH=$HOME/go
 
 PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 PATH="$HOME/.rbenv/bin:$HOME/.packer/bin:$HOME/.composer/vendor/bin:$PATH:$GOPATH/bin"
+if [ -d "$HOME/.build-utils" ]; then
+  export PATH=$PATH:$HOME/.build-utils/scripts
+fi
 
 # Source Ellipsis init code or fallback to the older system
 if [ -f ~/.ellipsis/init.sh ]; then
@@ -84,6 +87,9 @@ alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
 alias nrc='npm run commit'
 alias yc='yarn commit'
+
+export ELLIPSIS_USER=tbjers
+export GITHUB_USER=${ELLIPSIS_USER}
 
 CURRENT_NODE=$(nvm current)
 echo "Using Node ${CURRENT_NODE}."
