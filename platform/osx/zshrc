@@ -8,7 +8,9 @@ source $ZSH/antigen.zsh
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-DEFAULT_USER=tbjers
+export DEFAULT_USER=torgnybjers
+export ELLIPSIS_USER=tbjers
+export GITHUB_USER=${ELLIPSIS_USER}
 
 export PROJECTS=$HOME/git
 export GOPATH=$HOME/go
@@ -87,9 +89,6 @@ alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
 alias nrc='npm run commit'
 alias yc='yarn commit'
-
-export ELLIPSIS_USER=tbjers
-export GITHUB_USER=${ELLIPSIS_USER}
 
 CURRENT_NODE=$(nvm current)
 echo "Using Node ${CURRENT_NODE}."
