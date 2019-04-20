@@ -1,10 +1,13 @@
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
 if [ ! -n "$ZSH" ]; then
   ZSH=$HOME/.zsh
 fi
 
 export ELLIPSIS_PROTO=ssh
-
-source $ZSH/antigen.zsh
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
@@ -28,58 +31,20 @@ else
   export PATH=$PATH:~/.ellipsis/bin
 fi
 
-POSTGRES_PATH=/Applications/Postgres.app/Contents/Versions/latest/bin
-[ -d "$POSTGRES_PATH" ] && PATH="$POSTGRES_PATH:$PATH"
-
-ANDROID_NDK_PATH=$HOME/Library/Android/ndk
-ANDROID_SDK_PATH=$HOME/Library/Android/sdk/platform-tools
-[ -d "$ANDROID_NDK_PATH" ] && PATH="$ANDROID_NDK_PATH:$PATH"
-[ -d "$ANDROID_SDK_PATH" ] && PATH="$ANDROID_SDK_PATH:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-# Source asdf
-if [ -f ~/.asdf/asdf.sh ]; then
-  . ~/.asdf/asdf.sh
-fi
-
 alias vim="stty stop '' -ixoff ; nvim"
-alias be='bundle exec'
 
 # kqueue is broken in OS X
 export EVENT_NOKQUEUE=1
 
 ttyctl -f
 
-[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
-
-[ -f "$HOME/.asdf/asdf.sh" ] && source "$HOME/.asdf/asdf.sh"
-[ -f "$HOME/.asdf/completions/asdf.bash" ] && source "$HOME/.asdf/completions/asdf.bash"
-
-[ -f "$HOME/.go/go.sh" ] && source "$HOME/.go/go.sh"
-
 export PATH
 
-eval "$(rbenv init -)"
 eval "$(direnv hook zsh)"
 
-antigen use oh-my-zsh
-
-antigen bundles <<EOBUNDLES
-  git
-  git-flow
-  git-extras
-  github
-  common-aliases
-  zsh-users/zsh-syntax-highlighting
-  tbjers/zsh-plugins plugins/cl
-  ssh-agent
-EOBUNDLES
-
-antigen theme theunraveler
-
-antigen apply
+# fnm
+export PATH=$HOME/.fnm:$PATH
+eval "`fnm env --multi`"
 
 [ -f "$HOME/.iterm2_shell_integration.`basename $SHELL`" ] && source "$HOME/.iterm2_shell_integration.`basename $SHELL`"
 [ -f "$HOME/.credentials.`basename $SHELL`" ] && source "$HOME/.credentials.`basename $SHELL`"
@@ -99,16 +64,3 @@ npm_local() {
   shift
   docker run -it --rm -p $port:3000 -e AWS_SDK_LOAD_CONFIG=true $env -v ~/.aws:/root/.aws -v `pwd`:/usr/src/app -w /usr/src/app node:8 npm start $@
 }
-
-CURRENT_NODE=$(nvm current)
-echo "Using Node ${CURRENT_NODE}."
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/tbjers/.npm/_npx/80839/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/tbjers/.npm/_npx/80839/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh

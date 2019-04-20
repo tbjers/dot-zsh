@@ -53,6 +53,6 @@ change_shell() {
 pkg.install() {
   check_shell
   change_shell
-  curl -L https://git.io/antigen > $PKG_PATH/antigen.zsh
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
   fs.link_file $PKG_PATH
 }
