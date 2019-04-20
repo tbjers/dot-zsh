@@ -8,7 +8,7 @@ source $ZSH/antigen.zsh
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-export DEFAULT_USER=torgnybjers
+export DEFAULT_USER=tbjers
 export ELLIPSIS_USER=tbjers
 export GITHUB_USER=${ELLIPSIS_USER}
 
@@ -71,7 +71,6 @@ antigen bundles <<EOBUNDLES
   git-flow
   git-extras
   github
-  rbenv
   common-aliases
   zsh-users/zsh-syntax-highlighting
   tbjers/zsh-plugins plugins/cl
@@ -90,6 +89,16 @@ alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
 alias nrc='npm run commit'
 alias yc='yarn commit'
+alias awsdev='rm -f ~/.aws/credentials && ln -s ~/.aws/credentials.dev ~/.aws/credentials'
+alias awsprod='rm -f ~/.aws/credentials && ln -s ~/.aws/credentials.prod ~/.aws/credentials'
+
+npm_local() {
+  port=$1
+  env=$2
+  shift
+  shift
+  docker run -it --rm -p $port:3000 -e AWS_SDK_LOAD_CONFIG=true $env -v ~/.aws:/root/.aws -v `pwd`:/usr/src/app -w /usr/src/app node:8 npm start $@
+}
 
 CURRENT_NODE=$(nvm current)
 echo "Using Node ${CURRENT_NODE}."
@@ -99,3 +108,7 @@ echo "Using Node ${CURRENT_NODE}."
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/torgnybjers/.nvm/versions/node/${CURRENT_NODE}/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/tbjers/.npm/_npx/80839/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/tbjers/.npm/_npx/80839/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
