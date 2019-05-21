@@ -24,6 +24,10 @@ if [ -d "$HOME/.build-utils" ]; then
   export PATH=$PATH:$HOME/.build-utils/scripts
 fi
 
+if [ -d "$HOME/.local/bin" ]; then
+  PATH=$HOME/.local/bin:$PATH
+fi
+
 # Source Ellipsis init code or fallback to the older system
 if [ -f ~/.ellipsis/init.sh ]; then
   . ~/.ellipsis/init.sh
@@ -64,3 +68,16 @@ npm_local() {
   shift
   docker run -it --rm -p $port:3000 -e AWS_SDK_LOAD_CONFIG=true $env -v ~/.aws:/root/.aws -v `pwd`:/usr/src/app -w /usr/src/app node:8 npm start $@
 }
+
+eval "$(pyenv init -)"
+
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/tbjers/git/ConsumerTrack/ExperianTokenRenewal/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/tbjers/git/ConsumerTrack/ExperianTokenRenewal/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/tbjers/git/ConsumerTrack/ExperianTokenRenewal/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/tbjers/git/ConsumerTrack/ExperianTokenRenewal/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/tbjers/git/ConsumerTrack/ExperianTokenRenewal/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/tbjers/git/ConsumerTrack/ExperianTokenRenewal/node_modules/tabtab/.completions/slss.zsh
