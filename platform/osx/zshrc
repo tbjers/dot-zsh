@@ -69,4 +69,4 @@ npm_local() {
 
 export PATH="/Users/tbjers/.pyenv/bin:${PATH}"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#eval "$(pyenv virtualenv-init -)"
