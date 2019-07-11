@@ -1,112 +1,79 @@
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
 if [ ! -n "$ZSH" ]; then
   ZSH=$HOME/.zsh
 fi
 
-export ELLIPSIS_PROTO=ssh
+export ELLIPSIS_PROTO='ssh'
 
-source $ZSH/antigen.zsh
+export DEFAULT_USER='tbjers'
+export ELLIPSIS_USER="${ELLIPSIS_USER}"
+export GITHUB_USER="${ELLIPSIS_USER}"
 
-export VISUAL=vim
-export EDITOR="$VISUAL"
-DEFAULT_USER=tbjers
+export PROJECTS="${HOME}/git"
+export GOPATH="${HOME}/go"
 
-export PROJECTS=$HOME/git
-export GOPATH=$HOME/go
+export PYENV_VIRTUALENV_ENABLE_PROMPT=1
 
-PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
-PATH="$HOME/.rbenv/bin:$HOME/.packer/bin:$HOME/.composer/vendor/bin:$PATH:$GOPATH/bin"
-PATH="$HOME/Applications/apache-maven-3.3.3/bin:$PATH"
-PATH="/usr/local/heroku/bin:$PATH"
-PATH="/usr/local/go/bin:$PATH"
+PATH="/usr/local/bin:/usr/local/sbin:${HOME}/bin:${PATH}"
+PATH="${HOME}/.rbenv/bin:${HOME}/.packer/bin:${HOME}/.composer/vendor/bin:${GOPATH}/bin:${PATH}"
+if [ -d "${HOME}/.build-utils" ]; then
+  export "PATH=${PATH}:${HOME}/.build-utils/scripts"
+fi
 
-export PATH
+if [ -d "${HOME}/.local/bin" ]; then
+  PATH="${HOME}/.local/bin:${PATH}"
+fi
 
 # Source Ellipsis init code or fallback to the older system
-if [ -f ~/.ellipsis/init.sh ]; then
-	. ~/.ellipsis/init.sh
+if [ -f "${HOME}/.ellipsis/init.sh" ]; then
+  . "${HOME}/.ellipsis/init.sh"
 else
-	export PATH=$PATH:~/.ellipsis/bin
+  export PATH="${PATH}:{$HOME}/.ellipsis/bin"
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+alias vim="stty stop '' -ixoff ; nvim"
 
-# Source asdf
-if [ -f ~/.asdf/asdf.sh ]; then
-	. ~/.asdf/asdf.sh
-fi
-
-alias vim="stty stop '' -ixoff ; vim"
-alias be='bundle exec'
+# kqueue is broken in OS X
+export EVENT_NOKQUEUE=1
 
 ttyctl -f
 
-if which rbenv > /dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
+export PATH
 
-[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
+eval "$(direnv hook zsh)"
 
-if which antigen > /dev/null 2>&1; then
-  antigen use oh-my-zsh
+# fnm
+export PATH="${HOME}/.fnm:${PATH}"
+eval "`fnm env --multi`"
 
-  antigen bundles <<EOBUNDLES
-    git
-    composer
-    bower
-    git-flow
-    git-extras
-    github
-    common-aliases
-    tbjers/zsh-plugins plugins/cl
-    tbjers/zsh-plugins plugins/gibo
-    ssh-agent
-EOBUNDLES
+[ -f "${HOME}/.iterm2_shell_integration.`basename ${SHELL}`" ] && source "${HOME}/.iterm2_shell_integration.`basename ${SHELL}`"
+[ -f "${HOME}/.credentials.`basename ${SHELL}`" ] && source "${HOME}/.credentials.`basename ${SHELL}`"
 
-  if which rbenv > /dev/null 2>&1; then
-    antigen bundles <<EOBUNDLES
-      rbenv
-      gem
-      rake
-      ruby
-EOBUNDLES
-  fi
-
-  if which nvm > /dev/null 2>&1; then
-    antigen bundles <<EOBUNDLES
-      jake-node
-      node
-      npm
-      nvm
-EOBUNDLES
-  fi
-
-  antigen theme theunraveler
-
-  antigen apply
-else
-  echo "WARNING: Antigen is not installed. Please rerun:"
-  echo "$ ellipsis install tbjers/dot-zsh"
-fi
-
-[ -f "$HOME/.credentials.`basename $SHELL`" ] && source "$HOME/.credentials.`basename $SHELL`"
-
-eval "$(hub alias -s)"
 alias gf='git flow'
 alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
-alias mvn-clean-install='GIT_COMMIT=`` mvn clean install --update-snapshots --define maven.test.skip=true'
-if type 'gnome-open' > /dev/null; then
-  alias open='gnome-open'
-fi
-if type 'gvfs-open' > /dev/null; then
-  alias open='gvfs-open'
-fi
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias nrc='npm run commit'
+alias yc='yarn commit'
+alias awsdev='rm -f ~/.aws/credentials && ln -s ~/.aws/credentials.dev ~/.aws/credentials'
+alias awsprod='rm -f ~/.aws/credentials && ln -s ~/.aws/credentials.prod ~/.aws/credentials'
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/tbjers/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/tbjers/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/tbjers/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/tbjers/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+npm_local() {
+  port=$1
+  env=$2
+  shift
+  shift
+  docker run -it --rm -p $port:3000 -e AWS_SDK_LOAD_CONFIG=true $env -v ~/.aws:/root/.aws -v `pwd`:/usr/src/app -w /usr/src/app node:8 npm start $@
+}
+
+export PATH="/home/tbjers/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
+
+autoload -Uz compinit
+compinit
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
