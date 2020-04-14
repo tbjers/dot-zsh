@@ -54,5 +54,6 @@ pkg.install() {
   check_shell
   change_shell
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "$HOME/.zprezto"
+  curl https://pyenv.run | bash
   fs.link_file $PKG_PATH
 }
