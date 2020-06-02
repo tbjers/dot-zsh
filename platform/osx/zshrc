@@ -16,6 +16,12 @@ export GITHUB_USER="${ELLIPSIS_USER}"
 export PROJECTS="${HOME}/git"
 export GOPATH="${HOME}/go"
 
+# fnm
+if [ -d "${HOME}/.fnm" ]; then
+  export PATH="${HOME}/.fnm:${PATH}"
+  eval "`fnm env --multi`"
+fi
+
 PATH="/usr/local/bin:/usr/local/sbin:${HOME}/bin:${PATH}"
 PATH="${HOME}/.rbenv/bin:${HOME}/.packer/bin:${HOME}/.composer/vendor/bin:${GOPATH}/bin:${PATH}"
 if [ -d "${HOME}/.build-utils" ]; then
@@ -24,6 +30,10 @@ fi
 
 if [ -d "${HOME}/.local/bin" ]; then
   PATH="${HOME}/.local/bin:${PATH}"
+fi
+
+if [ -d "${HOME}/.yarn/bin" ]; then
+  PATH="${HOME}/.yarn/bin:${PATH}"
 fi
 
 # Source Ellipsis init code or fallback to the older system
@@ -44,29 +54,13 @@ export PATH
 
 eval "$(direnv hook zsh)"
 
-# fnm
-export PATH="${HOME}/.fnm:${PATH}"
-eval "`fnm env --multi`"
-
 [ -f "${HOME}/.iterm2_shell_integration.`basename ${SHELL}`" ] && source "${HOME}/.iterm2_shell_integration.`basename ${SHELL}`"
 [ -f "${HOME}/.credentials.`basename ${SHELL}`" ] && source "${HOME}/.credentials.`basename ${SHELL}`"
+
+kitty + complete setup zsh | source /dev/stdin
 
 alias gf='git flow'
 alias gs='git status'
 alias nah='git reset --hard; git clean -df;'
 alias nrc='npm run commit'
 alias yc='yarn commit'
-alias awsdev='rm -f ~/.aws/credentials && ln -s ~/.aws/credentials.dev ~/.aws/credentials'
-alias awsprod='rm -f ~/.aws/credentials && ln -s ~/.aws/credentials.prod ~/.aws/credentials'
-
-npm_local() {
-  port=$1
-  env=$2
-  shift
-  shift
-  docker run -it --rm -p $port:3000 -e AWS_SDK_LOAD_CONFIG=true $env -v ~/.aws:/root/.aws -v `pwd`:/usr/src/app -w /usr/src/app node:8 npm start $@
-}
-
-export PATH="/Users/tbjers/.pyenv/bin:${PATH}"
-eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
